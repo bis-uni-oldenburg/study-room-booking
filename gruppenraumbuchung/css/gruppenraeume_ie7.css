@@ -1,0 +1,23 @@
+
+
+#rv-legende ol, #rv-hinweise ol {
+	margin-left: 24px;
+}
+
+#rv-legende p.status-legende { 
+	margin-top: -14px;
+}
+
+
+#rv-legende h4#legende-headline { 
+	margin-bottom: 34px;
+	margin-top: 11px;
+}
+
+table#raumbuchung {
+	margin-top: -20px;
+}
+
+#rv-hinweise {
+	margin-top: 22px;	
+}

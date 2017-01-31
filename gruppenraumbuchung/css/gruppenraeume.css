@@ -1,0 +1,411 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+#head {
+	width: 100%;
+	height: 70px;
+	background-color: #0D59AB;
+	background-image: url(../images/uni-logo.gif);
+	background-repeat: no-repeat;
+	background-position: -3px -7px;
+}
+
+#head img {
+	position: absolute;
+	top: 40px;
+	left: 600px;
+}
+
+#head #uni-link {
+	display: block;
+	width: 190px;
+	height: 54px;
+	position: absolute;
+	left: 25px;
+	top: 8px;	
+	outline: none;
+}
+
+h1 {
+	margin-top: 8px;
+	margin-bottom: -13px;
+	margin-left: 20px;
+	font-size: 22px;	
+}
+
+#main {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	margin-right: 25px;
+}
+
+#rb-container {
+	border: 1px solid #9CCB5A;
+	width: 749px;
+	padding-bottom: 2px;
+	float: left;
+}
+
+#rb-scroll-container {
+	width: 670px;
+	overflow-x: scroll;
+}
+
+#raumbuchung {
+	margin-top: 0px!important;
+}
+
+table.raumbuchung {
+	background-color: #FFFFFF;
+	margin-left: 0px;
+}
+
+#rb-static {
+	
+}
+
+#rb-static table.raumbuchung {
+	width: 670px;
+	border: 1px solid #9CCB5A;
+}
+
+#rb-static table#raumbuchung {
+	border-left: 0;
+}
+
+#rb-static table#rb-uhrzeit {
+	width: 50px;	
+	border-right: 0;
+}
+
+table.raumbuchung tr td {
+	padding: 0;
+	font-size: 10px;
+	height: 16px;
+}
+
+table.raumbuchung tr th {
+	font-size: 12px;
+	background-color: #cccccc;
+	padding: 0 1px 0 1px;
+}
+
+table.raumbuchung tr th.arbeitsplatz, table.raumbuchung tr th.zeitabschnitt {
+	background-color: #365F8C;
+	color: #FFFFFF;
+	font-weight: normal;
+	width: 30px;
+}
+
+table.raumbuchung tr th.arbeitsplatz-header {
+	height: 17px;
+}
+
+.leerzelle-bibliotheken {
+	height: 17px;
+}
+
+.bibliotheken-headline td {
+	text-align: center; 
+	color: white; 
+	font-weight: bold;
+	font-size: 11px;
+	height: 17px!important;
+	text-transform: uppercase;
+}
+
+table.raumbuchung tr th.arbeitsplatz {
+	width: 20px!important;
+	height: 17px;
+	font-size: 11px;
+}
+
+table.raumbuchung tr th.zeitabschnitt {
+	white-space: nowrap;
+	font-size: 11px;
+	height: 16px;
+}
+
+table.raumbuchung tr th.zeitabschnitt span {
+	white-space: nowrap;
+}
+
+table.raumbuchung tr th.datum {
+	width: 80px;
+	height: 32px;
+	font-weight: bold;
+}
+
+table#rb-uhrzeit {
+	width: 50px;	
+}
+
+
+#so-funktioniert-es, #regeln {
+	margin: 10px;
+}
+
+#so-funktioniert-es p {
+	font-weight: bold;
+}
+
+#so-funktioniert-es ol, #regeln ol {
+	margin-left: -22px;
+}
+
+h4 {
+	color: #365F8C!important;
+	font-size: 14px;
+	margin-bottom: -4px;
+}
+
+#gap-info {
+	margin-left: 0;
+	margin-right: 10px;
+	float:left;
+}
+
+
+.status-legende {
+	font-size: 11px;
+}
+
+#raeume p {
+	margin: 0 0 -0 -18px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 11px;
+}
+
+ol#raeume {
+	font-weight: bold;
+	margin-left: -20px;
+}
+
+ol#raeume li {
+	font-size: 11px;
+	margin-left: -18px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	list-style-position: inside;
+}
+
+ol#raeume li, ol#raeume p {
+	font-size: 11px;
+	border-bottom: 1px solid #999999;
+}
+
+
+
+ol#raeume h4 {
+	font-size: 12px;
+	margin-left: -18px;
+	margin-top: 6px;
+	margin-bottom: 2px;
+}
+
+p.status-legende { 
+	padding-left: 12px; 
+	margin-top: -6px;
+}
+
+h4#legende-headline { 
+	margin-bottom: 21px;
+	margin-top: 13px;
+}
+
+
+p#links-and-news {
+	margin-top: 20px;	
+	margin-bottom: 0;
+	margin-left: 20px;
+	font-size: 12px;
+}
+
+p#links-and-news a {
+	color: #555555;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+p#links-and-news a:hover {
+	text-decoration: underline;
+}
+
+p#links-and-news span#news {
+	position: relative;
+	left: 36px;
+	color: red;
+	font-weight: bold;
+}
+
+
+#global-login-button {
+	width: 120px;
+	font-size: 14px!important;
+	font-weight: bold;
+	text-transform: uppercase;
+
+}
+
+
+.popups {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 1px solid #CCCCCC;
+	width: 300px;
+	background-color: #FFFFFF;
+	font-size: 12px;
+	padding: 6px;
+	display: none;
+}
+
+.popups h3 {
+	font-size: 16px;
+	margin-top: -4px;
+	margin-bottom: -7px;
+}
+
+.popups #close-form {
+	float: right;
+	margin-left: 6px;
+	margin-right: -6px;
+	margin-bottom: 3px;
+	margin-top: -6px;
+	padding: 2px 4px 2px 4px;
+	background-color: #CCCCCC;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.popups p {
+	line-height: 22px;
+}
+
+.popups input, .popups select {
+	font-size: 12px;
+}
+
+.popups input {
+	width: 70px;	
+}
+
+.alert {
+	color: red;
+	font-weight: bold;
+}
+
+.info-popup {
+	position: absolute;
+	padding: 18px 0 0 0;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	font-size: 12px!important;
+	z-index: 10000;
+	width: 567px;
+}
+
+.info-popup p, .info-popup ul li, .info-popup a {
+	font-size: 12px!important;
+}
+
+.info-popup h1 {
+	font-size: 17px!important;
+	font-weight: bold;
+}
+
+.info-popup-close {
+	display: block;
+	float: right;
+	position: relative;
+	top: -13px;
+	right: 5px;
+	font-weight: bold!important;
+	color: white!important;
+	text-decoration: none!important;
+}
+
+.info-popup-close:hover {
+	text-decoration: none!important;
+}
+
+.info-popup-content {
+	overflow: auto;
+	width: 550px;
+	max-height: 300px;
+	padding: 0px 12px 12px 12px;
+	position: relative;
+	left: 0;
+	top: 0;
+	text-align: justify;
+}
+
+
+.info-popup-handle {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 556px;
+	height: 20px;
+	background-color: #cccccc;
+	padding: 4px 0 0 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 14px;
+	color: white;
+	cursor: default;
+}
+
+#meldung {
+	margin-left: 25px;
+	font-weight: bold;
+	font-size: 12px;	
+	margin-bottom: -8px;
+}
+
+/* Login */
+fieldset {
+	margin-top: 200px;
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 8px
+}
+
+legend {
+	font-weight: bold;	
+	text-transform: uppercase;
+	margin-left: 10px;
+	padding: 4px;
+}
+
+fieldset p {
+	margin: 8px 8px 8px 32px;	
+	font-size: 12px;
+}
+
+fieldset form {
+	margin: 8px 8px 8px 32px;	
+	font-size: 12px;
+}
+
+fieldset form input {
+	width: 280px;
+}
+
+#login-meldung {
+	color: red;	
+}
+
+/* Admin-Raumbuchung */
+
+#admin-raumbuchung {
+	margin-left: 20px;
+	margin-top: 30px;
+}
