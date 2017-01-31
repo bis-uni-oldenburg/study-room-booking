@@ -1,15 +1,3 @@
-<style type="text/css">
-body {
-	font-family: Arial, Helvetica, sans-serif;
-	width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-}
-code { font-size: 16px; }
-
-img { border: 1px solid #999 }
-
-</style>
 <h1># study-room-booking</h1>
 <strong>A web application that enables library users to book library study rooms online.</strong>
 <h1>Web-Anwendung:<br>Online-Reservierung von Gruppenarbeitsplätzen</h1>
