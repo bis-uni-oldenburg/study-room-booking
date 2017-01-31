@@ -1,7 +1,3 @@
-<html>
-<head>
-<meta charset="utf-8">
-<title>BIS - Bibliotheks- und Informationssystem der Universität Oldenburg: Software zur Reservierung von Gruppenarbeitsplätzen</title>
 <style type="text/css">
 body {
 	font-family: Arial, Helvetica, sans-serif;
@@ -14,8 +10,6 @@ code { font-size: 16px; }
 img { border: 1px solid #999 }
 
 </style>
-</head>
-<body>
 <h1># study-room-booking</h1>
 <strong>A web application that enables library users to book library study rooms online.</strong>
 <h1>Web-Anwendung:<br>Online-Reservierung von Gruppenarbeitsplätzen</h1>
@@ -91,5 +85,3 @@ Beim Betrieb der Anwendung mit PHP 5.2.x und 5.3.[1-6] kommt es zu Darstellungsp
 <h4>Kontakt:</h4>
 Lars Heuer <a href="mailto:lars.heuer@uni-oldenburg.de">lars.heuer@uni-oldenburg.de</a>
 <p>Stand: 07.04.2016</p>
-</body>
-</html>
