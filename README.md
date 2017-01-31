@@ -19,18 +19,9 @@ img { border: 1px solid #999 }
 </style>
 </head>
 <body>
+<h1># study-room-booking</h1>
+<strong>A web application that enables library users to book library study rooms online.</strong>
 <h1>Web-Anwendung:<br>Online-Reservierung von Gruppenarbeitsplätzen</h1>
-<a name="download"></a>
-<h4>Download:</h4>
-
-<ul id="versionen">
-<li><a href="gap_04_2016.zip">Version vom 07.04.2016 (ZIP-Archiv)</a></li>
-<li><a href="gap_10_2015.zip">Version vom 02.10.2015 (ZIP-Archiv)</a></li>
-<li><a href="gap_11_2013.zip">Version vom 10.11.2013 (ZIP-Archiv)</a></li>
-<li><a href="gap_10_2011.zip">Version vom 04.10.2011 (ZIP-Archiv)</a></li>
-
-</ul>
-
 
 <h3>Folgende Institutionen setzen dieses System zurzeit (Oktober 2015) ein:</h3>
 <ul>
@@ -55,8 +46,7 @@ Beim Betrieb der Anwendung mit PHP 5.2.x und 5.3.[1-6] kommt es zu Darstellungsp
 
 <h4>Installation:</h4>
 <ol>
-	<li>ZIP-Archiv <a href="#download">herunterladen</a></li>
-	<li>ZIP-Archiv entpacken</li>
+	<li>Anwendung herunterladen</a></li>
 	<li>Das Verzeichnis <code>gruppenraumbuchung</code> auf den Webserver kopieren.</li>
 	<li>Eine neue MySQL-Datenbank einrichten (InnoDB, utf8_unicode_ci).</li>
 	<li>Die Datei <code>datenbanktabellen.sql</code> aus dem Verzeichnis <code>gap_datenbank</code> in die neue Datenbank importieren.
@@ -97,13 +87,12 @@ Beim Betrieb der Anwendung mit PHP 5.2.x und 5.3.[1-6] kommt es zu Darstellungsp
 <br>
 <h3>Screenshots:</h3>
 <p>Durch Klick auf ein Zeitsegment erscheint der Dialog zur Vormerkung eines Raums:</p>
-<img src="screenshots/gap-1.png" />
+<img src="https://diglib.bis.uni-oldenburg.de/software/gruppenraumbuchung/screenshots/gap-1.png" />
 <br /><p>Benutzer 12345 hat sich angemeldet und die Vormerkung durch Klick auf das Zeitsegment in eine Reservierung umgewandelt. Der Raum ist reserviert:</p>
-<img src="screenshots/gap-2.png" />  
+<img src="https://diglib.bis.uni-oldenburg.de/software/gruppenraumbuchung/screenshots/gap-2.png" />  
 <br><br>
 <h4>Kontakt:</h4>
 Lars Heuer <a href="mailto:lars.heuer@uni-oldenburg.de">lars.heuer@uni-oldenburg.de</a>
-<p>Für Anregungen und Hinweise auf Anwendungsfehler bzw. Vorschläge zur Verbesserung der Software bin ich dankbar.  </p>
 <p>Stand: 07.04.2016</p>
 </body>
 </html>
