@@ -33,13 +33,13 @@ else
 setcookie("gap_language", $language, time()+60*60*24 * $cookie_expires); // Expires after $cookie_expires days
 $_COOKIE["gap_language"]=$language;
 
-// Delete über URL
+// Delete Ã¼ber URL
 // Muster: ?delete=[datum jjjjmmtt],[uhrzeit hhmm],[raum]&pw=[passwort]
-// ?delete=20091209,1200,3&pw=lk943def
+// ?delete=20091209,1200,3&pw=xxx
 if(isset($_GET['delete']))
 {
 	$pw=$_GET['pw'];
-	if($pw=="lk943def")
+	if($pw=="xxx")
 	{
 		$delete=$_GET['delete'];
 		$data=explode(",", $delete);
@@ -47,7 +47,7 @@ if(isset($_GET['delete']))
 	}
 }
 
-// Create über URL
+// Create Ã¼ber URL
 // ?create=20091209,1200,1500,3&pw=lk943def
 if(isset($_GET['create']))
 {
