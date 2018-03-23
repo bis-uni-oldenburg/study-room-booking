@@ -73,7 +73,7 @@ class RoomReservation
 		
 		session_start();
 		if(isset($_SESSION["ub_user"])) $login_id1=$_SESSION["ub_user"];
-		else $login_id1="";
+		else return LOC::getLocale("alert_not_logged_in");
 		
 		if(isset($_SERVER['HTTP_USER_AGENT']) and preg_match("!package http!", $_SERVER['HTTP_USER_AGENT']))
 		{
