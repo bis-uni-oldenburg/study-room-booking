@@ -74,6 +74,9 @@ $tpl_data3=array();
 $current_time=$openings["earliest_open"];
 $current_time=preg_replace("!^0([0-9]{3})$!", "$1", $current_time);
 
+$room_loc = LOC::getLocale("room");
+$closed_loc = LOC::getLocale("closed");
+
 for($z=0; $z < $openings["max_segments"]; $z++)
 {
 	$von=$rr->convertTimeFromDec($current_time);
@@ -103,7 +106,7 @@ for($z=0; $z < $openings["max_segments"]; $z++)
 		
 			if((!$closed and (($von < $open) or ($von > $close))) or $closed)
 			{
-				$tpl_data2[$z]["belegungen"].="<td style=\"background-color: #e8e3e3\" title=\"" . LOC::getLocale("closed") . "\">&nbsp;</td>";
+				$tpl_data2[$z]["belegungen"].="<td style=\"background-color: #e8e3e3\" title=\"" . $closed_loc . "\">&nbsp;</td>";
 				
 			}
 			else 
@@ -201,7 +204,7 @@ for($z=0; $z < $openings["max_segments"]; $z++)
 				
 				$td_content="&nbsp;";
 
-				$tpl_data2[$z]["belegungen"].="<td id=\"cell-$date-$current_time-" . $room . "\"$onclick$style$rowspan onmouseover=\"showRoomAndTime($date, $current_time, $room)\" onmouseout=\"hideRoomAndTime($date, $current_time, $room)\" title=\"" . LOC::getLocale("room") . " $title, $von-$bis Uhr\">$td_content</td>";
+				$tpl_data2[$z]["belegungen"].="<td id=\"cell-$date-$current_time-" . $room . "\"$onclick$style$rowspan onmouseover=\"showRoomAndTime($date, $current_time, $room)\" onmouseout=\"hideRoomAndTime($date, $current_time, $room)\" title=\"" . $room_loc . " $title, $von-$bis Uhr\">$td_content</td>";
 			}
 		}
 		
