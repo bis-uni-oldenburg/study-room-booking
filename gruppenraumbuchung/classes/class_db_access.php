@@ -1,5 +1,4 @@
 <?php
-
 // Klasse DB_Access
 
 class DB_Access
@@ -27,12 +26,12 @@ class DB_Access
 		switch($db)
 		{
 			case "gap":
-				$this->db_name=""; // Name der Datenbank
-				$this->db_host=""; // Datenbank-Host
-				$this->db_user=""; // Datenbank-User
-				$this->db_password=""; // Password
+			    $this->db_name=""; // Name der Datenbank
+			    $this->db_host=""; // Datenbank-Host
+			    $this->db_user=""; // Datenbank-User
+			    $this->db_password=""; // Passwordrd
 				
-				break;		
+				break;	
 		}
 		
 				
@@ -66,9 +65,10 @@ class DB_Access
 	{
 		if($this->db_host and $this->db_user and $this->db_password)
 		{
-			$this->connection=mysql_connect($this->db_host,
-		                                	$this->db_user,
-		                                	$this->db_password);
+			$this->connection=mysqli_connect($this->db_host,
+					$this->db_user,
+					$this->db_password,
+					$this->db_name);
 		}
 		else die("Host, user, or password is not defined.");
 	}
@@ -109,13 +109,33 @@ class DB_Access
 		return $sql;
 	}
 	
+	function mysqli_field_name($result, $field_offset)
+	{
+		$properties = mysqli_fetch_field_direct($result, $field_offset);
+		return is_object($properties) ? $properties->name : null;
+	}
+	
+	function mysqli_result($res,$row=0,$col=0){
+		$numrows = mysqli_num_rows($res);
+		if ($numrows && $row <= ($numrows-1) && $row >=0){
+			mysqli_data_seek($res,$row);
+			$resrow = (is_numeric($col)) ? mysqli_fetch_row($res) : mysqli_fetch_assoc($res);
+			if (isset($resrow[$col])){
+				return $resrow[$col];
+			}
+		}
+		return false;
+	}
+	
+	
 	function executeSQL($sql)
 	{
-		$result=mysql_db_query($this->db_name, $sql, $this->connection);
+		//$result=mysql_db_query($this->db_name, $sql, $this->connection);
+		$result=mysqli_query($this->connection, $sql);
 		if($result AND preg_match("!^(SELECT|SHOW)!", $sql))
 		{
-			$this->rows=mysql_num_rows($result);
-			$this->fields=mysql_num_fields($result);
+			$this->rows=mysqli_num_rows($result);
+			$this->fields=mysqli_num_fields($result);
 			
 			$this->db_data=array();
 			
@@ -123,8 +143,8 @@ class DB_Access
 			{
 				for($f=0;$f<$this->fields;$f++)
 				{
-					$field_name=mysql_field_name($result, $f);
-					$this->db_data[$r][$field_name]=mysql_result($result,$r,$field_name);
+					$field_name=$this->mysqli_field_name($result, $f);
+					$this->db_data[$r][$field_name]=$this->mysqli_result($result,$r,$field_name);
 				}
 			}
 			
@@ -138,19 +158,19 @@ class DB_Access
 		$value=preg_replace("!([^\;]*)\;(.*)!","$1", $value);
 		
 		$sql="SELECT * FROM $table WHERE $field='$value'";
-		$result=mysql_db_query($this->db_name, $sql, $this->connection);
+		$result=mysqli_query($this->connection, $sql);
 		
 		if($result)
 		{
-			$rows=mysql_num_rows($result);
-			$fields=mysql_num_fields($result);
+			$rows=mysqli_num_rows($result);
+			$fields=mysqli_num_fields($result);
 			
 			if($rows)
 			{
 				for($f=0; $f<$fields; $f++)
 				{
-					$field_name=mysql_field_name($result, $f);
-					$object_data[$field_name]=mysql_result($result, 0, $field_name);
+					$field_name=$this->mysqli_field_name($result, $f);
+					$object_data[$field_name]=$this->mysqli_result($result, 0, $field_name);
 				}
 				return $object_data;
 			}
@@ -161,6 +181,7 @@ class DB_Access
 	
 	function getTableFields($table)
 	{
+		//SHOW COLUMNS FROM tabelle
 		$result=mysql_list_fields($this->db_name, $table, $this->connection);
 		$number_of_fields=mysql_num_fields($result);
 		$fields=array();
