@@ -1,7 +1,7 @@
 <?php
 // Gruppenraumbuchung
 // Anwendung: gap
-// Lars Heuer - 03.2009/09.2011/12.2013
+// Lars Heuer - 03.2009/09.2011/12.2013/03.2018
 
 if(!isset($included))
 {
