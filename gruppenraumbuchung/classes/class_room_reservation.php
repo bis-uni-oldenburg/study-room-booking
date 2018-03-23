@@ -80,9 +80,25 @@ class RoomReservation
 			return LOC::getLocale("alert_error");
 		}
 		
-		if($von == $bis) return LOC::getLocale("alert_start_and_end_time_identical");
+		if(!preg_match("!^[0-9]{3,4}$!", $von) or !preg_match("!^[0-9]{3,4}$!", $bis) or !preg_match("!^[0-9]{8}$!", $datum) or !preg_match("!^[0-9]+$!", $raum))
+		{
+		    return LOC::getLocale("alert_invalid_input");
+		}
 		
+		if(($von % $this->segment_length) != 0 or ($bis % $this->segment_length) != 0)
+		{
+		    return LOC::getLocale("alert_invalid_time_input");
+		}
+				
+		if($von == $bis) return LOC::getLocale("alert_start_and_end_time_identical");		
+		if($von > $bis) return LOC::getLocale("alert_invalid_time_input");	
+		if(($bis - $von) > $this->max_booking) return LOC::getLocale("alert_max_booking_time_exceeded");	
+		if(!$this->roomExists($raum)) return LOC::getLocale("alert_room_not_existing");
 		if(!$this->isAvailable($datum, $von, $bis, $raum)) return LOC::getLocale("alert_room_not_available");
+		if($datum == date("Ymd")) return LOC::getLocale("alert_booking_not_allowed_for_today");
+		
+		$max_date = date('Ymd', strtotime("+" . ($this->days_in_advance - 1) . " day"));
+		if($datum > $max_date) return LOC::getLocale("alert_booking_not_allowed_after_$max_date");
 		
 		if($login_id1 and $this->isAdmin($login_id1)) $status=1;
 		else 
@@ -128,15 +144,21 @@ class RoomReservation
 		
 		$date_difference=Time::getDateDifference($datum_von, $datum_bis);
 		
-		$von=preg_replace("!^([0-9]{1,2})\:([0-9]{2})$!", "$1$2", $von);
-		$bis=preg_replace("!^([0-9]{1,2})\:([0-9]{2})$!", "$1$2", $bis);
+		//$von=preg_replace("!^([0-9]{1,2})\:([0-9]{2})$!", "$1$2", $von);
+		//$bis=preg_replace("!^([0-9]{1,2})\:([0-9]{2})$!", "$1$2", $bis);
+		
+		$von=$von_std . $von_min;
+		$bis=$bis_std . $bis_min;
 		
 		$location=$this->getLocationByNumber($raum);
 		
 		$aktionszeit=date("YmdHis");
-		$error=false;
+		$error="";
+		$successful=0;
 		
-		for($t=0; $t < ($date_difference + 1); $t++)
+		if(!$intervall) $intervall = 1;
+
+		for($t=0; $t < ($date_difference + 1); $t = $t + $intervall)
 		{
 			$day_timestamp=mktime(0, 0, 0, substr($datum_von, 4, 2), substr($datum_von, 6, 2) + $t, substr($datum_von, 0, 4));
 			$day=date("Ymd", $day_timestamp);
@@ -148,18 +170,36 @@ class RoomReservation
 			$days_ot=explode("-", $days_ot);
 			$open=$days_ot[0];
 			$close=$days_ot[1];
+			
+			if($open == 1 or $close == 1) 
+			{
+				$error.="<br>Buchung am " . date("d.m.Y", $day_timestamp) . " nicht m&ouml;glich.";
+				continue;
+			}
+			
 			if($von < $open) $von=$open;
 			if($bis > $close) $bis=$close;
 			$von=preg_replace("!^0!", "", $von);
 			$bis=preg_replace("!^0!", "", $bis);
-			
+
 			$sql="INSERT INTO $table (login_id1, login_id2, datum, von, bis, raum, aktionszeit, status) 
 			      VALUES ('$login_id1', 'admin', '$day', '$von', '$bis', '$raum', '$aktionszeit', '1')";
-			if(!$access->executeSQL($sql)) $error=true;
+			if(!$access->executeSQL($sql)) $error.="<br>Speichern der Buchung für den $datum_von gescheitert.";
+			else $successful++;
 		}
 		
-		if(!$error) return "Buchungen sind gespeichert.";
-		else return "Fehler!";
+		if(!$successful)
+		{
+			$feedback="<strong>Buchungen konnten nicht vorgenommen werden.</strong>";
+		}
+		else 
+		{
+			$feedback="<strong>$successful Buchungen wurden vorgenommen.</strong>";
+		}
+		
+		if($error) $feedback.=$error;
+		
+		return $feedback;
 	}
 	
 	function confirm($data)
@@ -172,7 +212,7 @@ class RoomReservation
 		$raum=$data[2];
 		
 		session_start();
-		//if(isset($_COOKIE["ub_user"])) $login_id2=$_COOKIE["ub_user"];
+
 		if(isset($_SESSION["ub_user"])) $login_id2=$_SESSION["ub_user"];
 		else $login_id2="";
 		
@@ -185,6 +225,11 @@ class RoomReservation
 	
 	function delete($data)
 	{
+	    session_start();
+	    
+	    if(isset($_SESSION["ub_user"])) $login_id=$_SESSION["ub_user"];
+	    else return 0;
+	    
 		$access=clone $this->access;
 		$table=$this->table;
 		
@@ -194,10 +239,12 @@ class RoomReservation
 		
 		$status=$this->getStatus($datum, $von, $raum);
 		
-		$sql="DELETE FROM $table WHERE datum='$datum' AND von='$von' AND raum='$raum'";
+		$sql="DELETE FROM $table WHERE datum='$datum' AND von='$von' AND raum='$raum' AND (login_id1='$login_id' OR login_id2='$login_id')";
 
 		if($access->executeSQL($sql)) 
 		{
+		    if($access->connection->affected_rows == 0) return 0;
+		    
 			if($status) $response=LOC::getLocale("alert_reservation_deleted");
 			else $response=LOC::getLocale("alert_marking_deleted");
 		}
@@ -377,8 +424,11 @@ class RoomReservation
 	}
 	
 	
+	
 	function dayQuotaExhausted($user, $date)
 	{
+		if(!$user) return true;
+		
 		$access=clone $this->access;
 		$table=$this->table;
 		
@@ -395,6 +445,8 @@ class RoomReservation
 	
 	function weekQuotaExhausted($user, $date)
 	{
+		if(!$user) return true;
+		
 		$access=clone $this->access;
 		$table=$this->table;
 		
@@ -486,7 +538,7 @@ class RoomReservation
 	{
 		$date=date($format, mktime(0, 0, 0, date("m"), date("d")+$d, date("Y")));
 		
-		if($weekday) $date=Time::getGermanWeekDay(date("w", mktime(0, 0, 0, date("m"), date("d")+$d, date("Y")))) . "<br />$date";
+		if($weekday) $date=Time::getWeekDay(date("w", mktime(0, 0, 0, date("m"), date("d")+$d, date("Y")))) . "<br />$date";
 		
 		return $date;
 	}
@@ -585,6 +637,18 @@ class RoomReservation
 		return $access->db_data;
 	}
 	
+	function roomExists($number)
+	{
+	    $access=clone $this->access;
+	    $table="gap_rooms";
+	    
+	    $sql="SELECT * FROM $table WHERE active = 1 AND number = $number";
+	    $access->executeSQL($sql);
+	    
+	    if($access->rows) return true;
+	    else return false;
+	}
+	
 	function getLocations($all=false)
 	{
 		$access=clone $this->access;
@@ -621,7 +685,7 @@ class RoomReservation
 				if($room["location"] == $short) $colspan++;
 			}
 			
-			$headlines[]="<td colspan=\"$colspan\" style=\"background-color:$header\">$headline_short</td>";
+			$headlines[]="<td colspan=\"$colspan\" style=\"background-color:$header\">" . LOC::getLocale($short) . "</td>";
 		}
 		
 		$headlines=implode("\n", $headlines);
@@ -663,11 +727,6 @@ class RoomReservation
 			$admins[]=$login_id;
 		}
 
-	// Ergaenzt, B.D. 2012-04-27 
-
-	//	$admins[] = 'dugi7054';
-	//	
-	//      Ende ergaenzt ...
 		return $admins;
 	}
 	
