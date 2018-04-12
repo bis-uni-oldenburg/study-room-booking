@@ -10,6 +10,13 @@ class Time
 		return $weekdays[$day];
 	}
 	
+	static function getWeekDay($day)
+	{
+		$weekdays=array("sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
+	
+		return LOC::getLocale($weekdays[$day]);
+	}
+	
 	function YmdToGermanDate($ymd, $month_as_word=false)
 	{	
 		if($month_as_word)
@@ -134,7 +141,7 @@ class Time
 	}
 	
 	// Difference in hours
-	function getTimeDifference($time1, $time2)
+	static function getTimeDifference($time1, $time2)
 	{
 		$regex="!^([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$!";
 		if(preg_match($regex, $time1, $matches))
