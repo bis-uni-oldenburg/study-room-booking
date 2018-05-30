@@ -1,5 +1,5 @@
 <?php 
-// Gruppenraumbuchung - Raumbuchung für Admins 
+// Gruppenraumbuchung - Raumbuchung fÃ¼r Admins 
 // Anwendung: gap
 // Lars Heuer, 17.08.2010
 
@@ -24,7 +24,7 @@ if(!isset($_POST['datum_von']))
 {
 	$html=$template->getTemplate("admin_book_room");
 	
-	$room_select="\n<option selected>[Bitte auswählen]</option>";
+	$room_select="\n<option selected>[Bitte auswÃ¤hlen]</option>";
 	foreach($rr->rooms as $room)
 	{
 		$value=$room["number"];
@@ -40,10 +40,10 @@ if(!isset($_POST['datum_von']))
 }
 else
 {
-	$meldung=$rr->adminBookRoom($_POST, $_COOKIE["ub_user"]);
+	$meldung=$rr->adminBookRoom($_POST, $_SESSION["ub_user"]);
 	echo $meldung;
-	echo "<br><br><a href=\"admin_book_room.php\">Weitere Buchung durchführen</a>";
-	echo "<br><a href=\"index.php\">Zur öffentlichen Buchungsseite</a>";
+	echo "<br><br><a href=\"admin_book_room.php\">Weitere Buchung durchfÃ¼hren</a>";
+	echo "<br><a href=\"index.php\">Zur Ã¶ffentlichen Buchungsseite</a>";
 }
 
 ?>
