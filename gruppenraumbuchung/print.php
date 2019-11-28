@@ -27,6 +27,12 @@ $datum=$_GET['datum'];
 $von=$_GET['von'];
 $raum=$_GET['raum'];
 
+if(!preg_match("!^[0-9]{8}$!", $datum) || !preg_match("!^[0-9]{3,4}$!", $von) || !preg_match("!^[0-9]{1,3}$!", $raum)) 
+{
+    echo "Error";
+    exit;   
+}
+
 if($data=$rr->getBooking($datum, $von, $raum))
 {
 	$data["raum"]=$rr->getRoomTitleByNumber($_GET['raum']);
