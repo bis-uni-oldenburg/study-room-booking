@@ -239,7 +239,7 @@ class RoomReservation
 		
 		$status=$this->getStatus($datum, $von, $raum);
 		
-		$sql="DELETE FROM $table WHERE datum='$datum' AND von='$von' AND raum='$raum' AND (login_id1='$login_id' OR login_id2='$login_id')";
+		$sql="DELETE FROM $table WHERE datum='$datum' AND von='$von' AND raum='$raum' AND (login_id1='$login_id' OR login_id2='$login_id') LIMIT 1";
 
 		if($access->executeSQL($sql)) 
 		{
