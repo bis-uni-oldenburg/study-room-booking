@@ -295,9 +295,9 @@ class RoomReservation
 				$login_id2=$access->db_data[$t]["login_id2"];
 				$aktionszeit=$access->db_data[$t]["aktionszeit"];
 				
-				$bis = int($bis);
-				$von = int($von);
-				$segment_length = int($this->segment_length);
+				$bis = intval($bis);
+				$von = intval($von);
+				$segment_length = intval($this->segment_length);
 				$zeitabschnitt=$von;
 				
 				for($b=0; $b < (($bis-$von)/$segment_length); $b++)
