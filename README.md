@@ -14,6 +14,7 @@
 <li>UB Frankfurt</li>
 <li>UB HSU Hamburg</li>
 <li>HLB Fulda</li>
+<li>UB Clausthal</li>
 
 </ul>
 
